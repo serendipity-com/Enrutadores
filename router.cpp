@@ -36,7 +36,9 @@ void Router::agregarRouter(string clave, int valor)
     }
     else
     {
-        cout << "El router con el ID " << clave <<" ya existe en esta red" << endl;
+        cout << endl << "********************************************************" << endl;
+        cout << "El router con el ID <" << clave <<"> ya existe en esta red" << endl;
+        cout << "********************************************************" << endl<< endl;
     }
 }
 
@@ -51,11 +53,33 @@ void Router::eliminarRouter(string clave)
     }
     else
     {
-        cout << "El router con el ID " << clave <<" no existe en esta red " << endl;
+        cout << endl << "********************************************************" << endl;
+        cout << "El router con el ID <" << clave <<"> no existe en esta red " << endl;
+        cout << "********************************************************" << endl << endl;
     }
 }
 
 void Router::configurarTopologia(string clave, int valor)
 {
-    topologia[clave] = valor;
+    if (clave == ID)
+    {
+        cout << endl << "********************************************************" << endl;
+        cout << "El router con el ID <" << clave <<"> no puede ser modificado " << endl;
+        cout << "********************************************************" << endl << endl;
+    }
+    else
+    {
+        auto valorBuscar = topologia.find(clave);
+
+        if (valorBuscar != topologia.end())
+        {
+            topologia[clave] = valor;
+        }
+        else
+        {
+            cout << endl << "********************************************************" << endl;
+            cout << "El router con el ID <" << clave <<"> no existe en esta red " << endl;
+            cout << "********************************************************" << endl << endl;
+        }
+    }
 }
