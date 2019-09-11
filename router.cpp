@@ -2,7 +2,7 @@
 
 Router::Router()
 {
-
+    ID = "";
 }
 
 void Router::setTopologia(map <string,int> topologia)
@@ -58,5 +58,4 @@ void Router::eliminarRouter(string clave)
 void Router::configurarTopologia(string clave, int valor)
 {
     topologia[clave] = valor;
-    topologia[ID] = valor;
 }
