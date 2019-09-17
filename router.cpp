@@ -1,11 +1,12 @@
 #include "router.h"
 
-Router::Router()
+Router::Router(map<string, string> topologia)
 {
-    ID = "";
+//    ID = "";
+    setTopologia(topologia);
 }
 
-void Router::setTopologia(map <string,int> topologia)
+void Router::setTopologia(map<string, string> topologia)
 {
     this ->topologia = topologia;
 }
@@ -20,12 +21,12 @@ string Router::getID()
     return ID;
 }
 
-map<string, int> Router::getTopologia()
+map<string, string> Router::getTopologia()
 {
     return topologia;
 }
 
-void Router::agregarRouter(string clave, int valor)
+void Router::agregarRouter(string clave, string valor)
 {
     //comprueba si el router existe
     auto valorBuscar = topologia.find(clave);
@@ -59,7 +60,7 @@ void Router::eliminarRouter(string clave)
     }
 }
 
-void Router::configurarTopologia(string clave, int valor)
+void Router::configurarTopologia(string clave, string valor)
 {
     if (clave == ID)
     {

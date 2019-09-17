@@ -5,28 +5,29 @@
 #include <string>
 #include <map>
 #include <iterator>
+#include <string.h> //para usar strtok
+#include <fstream>
 
 using namespace std;
 
 class Router
 {
 public:
-    Router();
-
-    void setTopologia(map <string,int> topologia);
+    Router(map<string, string> topologia);
+    void setTopologia(map <string,string> topologia);
     void setID(string ID);
 
     string getID();
-    map <string, int> getTopologia();
+    map <string, string> getTopologia();
 
-    void agregarRouter(string clave, int valor);
+    void agregarRouter(string clave, string valor);
     void eliminarRouter(string clave);
-    void configurarTopologia(string clave, int valor);
+    void configurarTopologia(string clave, string valor);
 
 
 private:
     string ID;
-    map <string, int> topologia;
+    map <string, string> topologia;
 };
 
 #endif // ROUTER_H
