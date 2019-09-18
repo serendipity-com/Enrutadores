@@ -4,6 +4,7 @@
 #include "red.h"
 
 
+
 using namespace std;
 
 int main()
@@ -13,7 +14,8 @@ int main()
 //    router.agregarRouter("A",0);
 //    router.agregarRouter("B",1);
 //    router.agregarRouter("C",2);
-
+//    router.agregarRouter("D",2);
+//    router.eliminarRouter("D");
 //    router.configurarTopologia("B",3);
 //    for (auto posicion : router.getTopologia())
 //    {
@@ -21,6 +23,6 @@ int main()
 //    }
 
 //    cout << "" << endl;
-    Red fileName("red.txt");
+    Red redRouters; //se llama al constructor por defecto
     return 0;
 }

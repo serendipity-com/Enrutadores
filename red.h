@@ -6,18 +6,19 @@
 #include <map>
 #include <iterator>
 #include "router.h"
-#include <string.h> //para usar strtok
 #include <fstream>
+
+using namespace std;
 
 class Red
 {
 public:
-    Red(string fileName);
-    void setRed(map <string , map <string, string>> red);
-    map <string, map <string, string>> getRed();
-    void agregarTopologia(string clave, map <string, string> valor);
+    Red(); //constructor por defecto
+    void setRed(map <char,Router> red);
+    map <char,Router> getRed();
+    void agregarTopologia(char routerA, char routerB, int costo);
 private:
-    map <string , map <string, string>> red;
+    map <char,Router> red;
 
 
 };

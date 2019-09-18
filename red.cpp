@@ -1,83 +1,74 @@
 #include "red.h"
-#include "router.h"
 
-Red::Red(string fileName)
+Red::Red()
 {
-    char *linksA = new char[7];
-    ifstream topologiaRouter(fileName);
+    ifstream topologiaRouter("red.txt");
+    string linea;
     if(topologiaRouter.is_open())
     {
-        int cont  = 0;
-        string node = "", nodeF = "";
-        map <string, string> topologiaNodo;
-        map <string, map <string, string>> red;
-        setRed(red);
         while(!topologiaRouter.eof())
         {
-           linksA[cont] = topologiaRouter.get();
-           if(linksA[cont] == '\n')
-           {
-               node += linksA[0];
-               char delimitador[] = "-=\n";
-               string linksS = "";
-               //solo en la primer llamada a strtok pasamos cadena en primer argumento
-               char *subStr = strtok(linksA, delimitador);
-               if(subStr != NULL)
-               { //NULL es para saber hasta donde va a segmentar
-                   while(subStr != NULL)
-                   {
-                       // Sólo en la primera pasamos la cadena; en las siguientes pasamos NULL
-                       linksS += subStr;
-                       //En las demás llamadas a strtok le pasamos como primer arg a NULL
-                       subStr = strtok(NULL, delimitador);
-                   }
-               }
-               Router topologia(topologiaNodo);
-               topologia.agregarRouter(linksS[1], linksS[2]);
-               delete [] linksA;
-               char *linksA = new char[7];
-               cont = 0;
-               linksA[cont] = topologiaRouter.get();
-               nodeF += linksA[cont];
-               if(node != nodeF)
-               {
-                   agregarTopologia(node, topologia.getTopologia());
-               }
-           }
-           else
-           {
-               cont++;
-           }
+           getline(topologiaRouter, linea);
+           if(linea != "")
+            agregarTopologia(linea[0], linea[1], linea[2] - '0');
         }
         topologiaRouter.close();
-        delete [] linksA;
+
+//        for (auto posicion : red) //topologia de cada router
+//        {
+//            //posicion.first: nodo o router
+//            cout << posicion.first << endl;
+//            //posicion.second: map <char,int> topologia (objeto de clase Router)
+//            for (auto posicion2 : posicion.second.getTopologia()){
+//                cout << posicion2.first << ":" << posicion2.second<<endl;
+//            }
+//        }
     }
     else cout << "Fichero no existe o faltan permisos para abrirlo" << endl;
+
+
 }
 
-void Red::setRed(map <string , map <string, string>> red)
+void Red::setRed(map<char, Router> red)
 {
     this ->red = red;
 }
 
-map<string, map<string, string>> Red::getRed()
+map<char, Router> Red::getRed()
 {
     return red;
 }
 
-void Red::agregarTopologia(string clave, map <string, string> valor)
+void Red::agregarTopologia(char routerA,char routerB, int valor)
 {
-    auto valorBuscar = red.find(clave);
+    //comprueba si el router existe
+    //valorBuscar: iterador que apunta al elemento donde se halle la clave routerA
+    auto valorBuscar = red.find(routerA);
+    //routerA: nodo cuya topología se agrega al map de topología
 
-    if (valorBuscar == red.end())
+    if (valorBuscar == red.end()) //si no está
     {
-        red.insert({clave, valor});
+        Router topologia; //es un map <char,int>
+        //nodo de enlace(routerB) y costo de este enlace(valor)
+        topologia.agregarRouter(routerB,valor);
+        red.insert({routerA,topologia});//router (routerA) y su topología completa
+    }
+    else //si sí está
+    {
+        //se para en el valor (map <char,int>) asociado a la clave routerA
+        red[routerA].agregarRouter(routerB,valor);
+    }
+    auto valorBuscar2 = red.find(routerB);
+
+    if (valorBuscar2 == red.end())
+    {
+        Router topologia;
+        topologia.agregarRouter(routerA,valor);
+        red.insert({routerB,topologia});
     }
     else
     {
-        cout << endl << "********************************************************" << endl;
-        cout << "La topologia para el router de ID <" << clave <<"> ya existe en esta red" << endl;
-        cout << "********************************************************" << endl<< endl;
+        red[routerB].agregarRouter(routerA,valor);
     }
 }
 

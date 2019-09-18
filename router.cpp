@@ -1,41 +1,40 @@
 #include "router.h"
 
-Router::Router(map<string, string> topologia)
+Router::Router()
 {
-//    ID = "";
-    setTopologia(topologia);
+
 }
 
-void Router::setTopologia(map<string, string> topologia)
+void Router::setTopologia(map<char,int> topologia)
 {
     this ->topologia = topologia;
 }
 
-void Router::setID(string ID)
+void Router::setID(char ID)
 {
     this -> ID = ID;
 }
 
-string Router::getID()
+char Router::getID()
 {
     return ID;
 }
 
-map<string, string> Router::getTopologia()
+map<char, int> Router::getTopologia()
 {
     return topologia;
 }
 
-void Router::agregarRouter(string clave, string valor)
+void Router::agregarRouter(char clave, int valor)
 {
     //comprueba si el router existe
     auto valorBuscar = topologia.find(clave);
 
-    if (valorBuscar == topologia.end())
+    if (valorBuscar == topologia.end()) //si no está en el map
     {
         topologia.insert({clave,valor});
     }
-    else
+    else //si sí está
     {
         cout << endl << "********************************************************" << endl;
         cout << "El router con el ID <" << clave <<"> ya existe en esta red" << endl;
@@ -43,7 +42,7 @@ void Router::agregarRouter(string clave, string valor)
     }
 }
 
-void Router::eliminarRouter(string clave)
+void Router::eliminarRouter(char clave)
 {
     //comprueba si el router a elimar existe
     auto valorBuscar = topologia.find(clave);
@@ -60,7 +59,7 @@ void Router::eliminarRouter(string clave)
     }
 }
 
-void Router::configurarTopologia(string clave, string valor)
+void Router::configurarTopologia(char clave, int valor)
 {
     if (clave == ID)
     {
