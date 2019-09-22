@@ -14,15 +14,16 @@ Red::Red()
         }
         topologiaRouter.close();
 
-//        for (auto posicion : red) //topologia de cada router
-//        {
-//            //posicion.first: nodo o router
-//            cout << posicion.first << endl;
-//            //posicion.second: map <char,int> topologia (objeto de clase Router)
-//            for (auto posicion2 : posicion.second.getTopologia()){
-//                cout << posicion2.first << ":" << posicion2.second<<endl;
-//            }
-//        }
+        //Imprime la topologia de la red
+        for (auto posicion : red) //topologia de cada router
+        {
+            //posicion.first: nodo o router
+            cout << posicion.first << endl;
+            //posicion.second: map <char,int> topologia (objeto de clase Router)
+            for (auto posicion2 : posicion.second.getTopologia()){
+                cout << posicion2.first << ":" << posicion2.second<<endl;
+            }
+        }
     }
     else cout << "Fichero no existe o faltan permisos para abrirlo" << endl;
 
@@ -69,6 +70,33 @@ void Red::agregarTopologia(char routerA,char routerB, int valor)
     else
     {
         red[routerB].agregarRouter(routerA,valor);
+    }
+}
+
+void Red::encontrarMejorRuta(char origen, char destino, char anterior)
+{
+    map <char, int> topologia = red[origen].getTopologia();
+
+    char nombre;
+    int valor = 10;
+
+    if (origen == destino)
+    {
+        return;
+    }
+    else
+    {
+        cout << origen;
+        for (auto posicion : topologia)
+        {
+            if(posicion.second < valor && anterior != posicion.first)
+            {
+                nombre = posicion.first;
+                valor = posicion.second;
+            }
+        }
+        cout << nombre<< endl;
+        encontrarMejorRuta(nombre, destino, origen);
     }
 }
 
