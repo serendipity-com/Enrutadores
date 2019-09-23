@@ -6,10 +6,11 @@ Menu::Menu()
 
 void Menu::opcionesRed()
 {
+   bool flag1 = false;
    Red *redRouters = new Red();
-   bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
    while(!flag1)
    {
+       bool flag2 = false, flag3 = false, flag4 = false;
        try
        {
            char option;
@@ -18,6 +19,7 @@ void Menu::opcionesRed()
            cout << "Opción 1: Agregar enlaces a la topología de un router." << endl;
            cout << "Opción 2: Eliminar enlaces de la topología de un router." << endl;
            cout << "Opción 3: Configurar costo de enlaces de la topología de un router." << endl;
+           cout << "Opción 4: Salir." << endl;
            cout << "*****************************************************************************" << endl;
            cin >> option;
            if(sizeof(option) != 1)
@@ -41,7 +43,6 @@ void Menu::opcionesRed()
                        {    throw nodoA; throw nodoB; throw costo; }
                        else
                        {
-                           flag1 = true;
                            flag2 = true;
                            redRouters->agregarTopologia(nodoA, nodoB, costo);
                            //Imprime la topologia de la red
@@ -59,7 +60,7 @@ void Menu::opcionesRed()
                    }
                    catch(...)
                    {
-                       cerr << "Ocurrió un error inesperado" << endl;
+                       cout << "Ocurrió un error inesperado" << endl;
                    }
                }
            }
@@ -80,7 +81,6 @@ void Menu::opcionesRed()
                        {   throw nodoA; throw nodoB; }
                        else
                        {
-                           flag1 = true;
                            flag3 = true;
                            redRouters->eliminarTopologia(nodoA, nodoB);
                            //Imprime la topologia de la red
@@ -98,7 +98,7 @@ void Menu::opcionesRed()
                    }
                    catch(...)
                    {
-                       cerr << "Ocurrió un error inesperado" << endl;
+                       cout << "Ocurrió un error inesperado" << endl;
                    }
                }
            }
@@ -121,7 +121,6 @@ void Menu::opcionesRed()
                        {    throw nodoA; throw nodoB; throw costo;}
                        else
                        {
-                           flag1 = true;
                            flag4 = true;
                            redRouters->configurarTopologia(nodoA, nodoB, costo);
                            //Imprime la topologia de la red
@@ -139,14 +138,15 @@ void Menu::opcionesRed()
                    }
                    catch(...)
                    {
-                       cerr << "Ocurrió un error inesperado" << endl;
+                       cout << "Ocurrió un error inesperado" << endl;
                    }
                }
            }
+           else if(option == '4') flag1 = true;
        }
        catch(...)
        {
-           cerr << "Ocurrió un error inesperado" << endl;
+           cout << "Ocurrió un error inesperado" << endl;
        }
 
    }

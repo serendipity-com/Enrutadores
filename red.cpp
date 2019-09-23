@@ -81,9 +81,17 @@ void Red::eliminarTopologia(char routerA, char routerB) //Eliminar enlace
 
     if (valorBuscar != red.end()) //si está
     {
-        Router topologia; //es un map de los enlaces de routerA
-
-        topologia.eliminarRouter(routerB); //Elimina enlace de routerA con routerB
+        auto valorBuscar2 = red[routerA].topologia.find(routerB);
+        if (valorBuscar2 != red[routerA].topologia.end())
+        {
+            red[routerA].topologia.erase(routerB); //Elimina enlace si existe
+        }
+        else
+        {
+            cout << endl << "********************************************************" << endl;
+            cout << "El router con el ID <" << routerB <<"> no existe en esta red " << endl;
+            cout << "********************************************************" << endl << endl;
+        }
     }
     else //si no está
     {
@@ -91,12 +99,21 @@ void Red::eliminarTopologia(char routerA, char routerB) //Eliminar enlace
         cout << "El router con el ID <" << routerA <<"> no existe en esta red " << endl;
         cout << "********************************************************" << endl << endl;
     }
-    auto valorBuscar2 = red.find(routerB);
+    auto valorBuscar3 = red.find(routerB);
 
-    if (valorBuscar2 != red.end())
+    if (valorBuscar3 != red.end())
     {
-        Router topologia;
-        topologia.eliminarRouter(routerA);
+        auto valorBuscar4 = red[routerB].topologia.find(routerA);
+        if (valorBuscar4 != red[routerB].topologia.end())
+        {
+            red[routerB].topologia.erase(routerA); //Elimina enlace si existe
+        }
+        else
+        {
+            cout << endl << "********************************************************" << endl;
+            cout << "El router con el ID <" << routerA <<"> no existe en esta red " << endl;
+            cout << "********************************************************" << endl << endl;
+        }
     }
     else
     {
@@ -112,11 +129,19 @@ void Red::configurarTopologia(char routerA, char routerB, int costo) //Cambiar c
     //valorBuscar: iterador que apunta al elemento donde se halle la clave routerA
     auto valorBuscar = red.find(routerA);
     //routerA: nodo cuya topología se agrega al map de topología
-
     if (valorBuscar != red.end()) //si está
     {
-        Router topologia; //es un map de los enlaces de routerA
-        topologia.configurarCosto(routerB, costo); //Configura costo de enlace
+        auto valorBuscar = red[routerA].topologia.find(routerB);
+        if (valorBuscar != red[routerA].topologia.end())
+        {
+            red[routerA].topologia[routerB] = costo;
+        }
+        else
+        {
+            cout << endl << "********************************************************" << endl;
+            cout << "El router con el ID <" << routerB <<"> no existe en esta red " << endl;
+            cout << "********************************************************" << endl << endl;
+        }
     }
     else //si no está
     {
@@ -128,8 +153,17 @@ void Red::configurarTopologia(char routerA, char routerB, int costo) //Cambiar c
 
     if (valorBuscar2 != red.end())
     {
-        Router topologia;
-        topologia.configurarCosto(routerA, costo);
+        auto valorBuscar = red[routerB].topologia.find(routerA);
+        if (valorBuscar != red[routerB].topologia.end())
+        {
+            red[routerB].topologia[routerA] = costo;
+        }
+        else
+        {
+            cout << endl << "********************************************************" << endl;
+            cout << "El router con el ID <" << routerA <<"> no existe en esta red " << endl;
+            cout << "********************************************************" << endl << endl;
+        }
     }
     else
     {

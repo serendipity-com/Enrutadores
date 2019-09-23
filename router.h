@@ -9,22 +9,14 @@
 
 using namespace std;
 
-class Router
+struct Router
 {
-public:
     Router();//constructor por defecto (sin parámetros), sirve como un tipo de dato
     void setTopologia(map <char,int> topologia);
     void setID(char ID);
-
     char getID();
     map <char, int> getTopologia();
-
     void agregarRouter(char clave, int valor);
-    void eliminarRouter(char clave);
-    void configurarCosto(char clave, int valor);
-
-
-private:
     char ID;
     map <char,int> topologia;
 };

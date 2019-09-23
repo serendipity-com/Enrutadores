@@ -10,9 +10,8 @@
 
 using namespace std;
 
-class Red
+struct Red
 {
-public:
     Red(); //constructor por defecto
     void setRed(map <char,Router> red);
     map <char,Router> getRed();
@@ -20,10 +19,7 @@ public:
     void eliminarTopologia(char routerA, char routerB);
     void configurarTopologia(char routerA, char routerB, int costo);
     void encontrarMejorRuta(char origen, char destino, char anterior);
-//private:
     map <char,Router> red;
-
-
 };
 
 #endif // RED_H
