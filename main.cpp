@@ -1,16 +1,14 @@
 #include <iostream>
 #include <iterator>
-#include "router.h"
-#include "red.h"
-
-
+#include <menu.h>
 
 using namespace std;
 
 int main()
 {
-    Red *redRouters = new Red();
-    redRouters->encontrarMejorRuta('A','C','A');
-    delete  redRouters;
+    Menu *menu = new Menu();
+    menu->opcionesRed();
+    delete menu;
     return 0;
+
 }

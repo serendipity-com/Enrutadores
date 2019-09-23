@@ -28,7 +28,7 @@ map<char, int> Router::getTopologia()
 void Router::agregarRouter(char clave, int valor)
 {
     //comprueba si el router existe
-    auto valorBuscar = topologia.find(clave);
+    auto valorBuscar = topologia.find(clave); //map de enlaces de routerA
 
     if (valorBuscar == topologia.end()) //si no está en el map
     {
@@ -44,14 +44,14 @@ void Router::agregarRouter(char clave, int valor)
 
 void Router::eliminarRouter(char clave)
 {
-    //comprueba si el router a elimar existe
+    //comprueba si el router a eliminar existe
     auto valorBuscar = topologia.find(clave);
 
     if (valorBuscar != topologia.end())
     {
-        topologia.erase(clave);
+        topologia.erase(valorBuscar); //Elimina enlace si existe
     }
-    else
+    else if(valorBuscar == topologia.end())
     {
         cout << endl << "********************************************************" << endl;
         cout << "El router con el ID <" << clave <<"> no existe en esta red " << endl;
@@ -59,7 +59,7 @@ void Router::eliminarRouter(char clave)
     }
 }
 
-void Router::configurarTopologia(char clave, int valor)
+void Router::configurarCosto(char clave, int valor)
 {
     if (clave == ID)
     {

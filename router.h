@@ -21,7 +21,7 @@ public:
 
     void agregarRouter(char clave, int valor);
     void eliminarRouter(char clave);
-    void configurarTopologia(char clave, int valor);
+    void configurarCosto(char clave, int valor);
 
 
 private:

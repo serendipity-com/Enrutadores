@@ -6,8 +6,10 @@ CONFIG -= qt
 SOURCES += \
         main.cpp \
         router.cpp \
-    red.cpp
+    red.cpp \
+    menu.cpp
 
 HEADERS += \
     router.h \
-    red.h
+    red.h \
+    menu.h
